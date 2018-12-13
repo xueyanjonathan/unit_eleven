@@ -1,8 +1,10 @@
 import pygame, sys
+import brick
 from pygame.locals import *
 
 
 def main():
+
     # Constants that will be used in the program
     APPLICATION_WIDTH = 400
     APPLICATION_HEIGHT = 600
@@ -25,12 +27,26 @@ def main():
     CYAN = (0, 255, 255)
     BLACK = (0, 0, 0)
     WHITE = (255, 255, 255)
+    colors = [RED, ORANGE, YELLOW, GREEN, CYAN, BLACK, WHITE]
 
     # Step 1: Use loops to draw the rows of bricks. The top row of bricks should be 70 pixels away from the top of
     # the screen (BRICK_Y_OFFSET)
     pygame.init()
     mainSurface = pygame.display.set_mode((APPLICATION_WIDTH, APPLICATION_HEIGHT), 32, 0)
     pygame.display.set_caption("Break Out")
+
+    x = 0
+    y = BRICK_Y_OFFSET
+    bricks = 10
+    for rows in range(10):
+        for number in range(bricks):
+            pile = brick.Brick(BRICK_WIDTH, BRICK_HEIGHT, RED)
+            pile.rect.x = x
+            pile.rect.y = y
+            mainSurface.blit(pile.image, pile.rect)
+            x = x + BRICK_WIDTH + BRICK_SEP
+        y = y + BRICK_HEIGHT + BRICK_SEP
+    pygame.display.update()
 
     while True:
         for event in pygame.event.get():
