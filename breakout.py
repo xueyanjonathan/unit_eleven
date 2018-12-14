@@ -1,5 +1,6 @@
 import pygame, sys
 import brick
+import paddle
 from pygame.locals import *
 
 
@@ -27,25 +28,37 @@ def main():
     CYAN = (0, 255, 255)
     BLACK = (0, 0, 0)
     WHITE = (255, 255, 255)
-    colors = [RED, ORANGE, YELLOW, GREEN, CYAN, BLACK, WHITE]
+    colors = [CYAN, GREEN, YELLOW, ORANGE, RED]
 
     # Step 1: Use loops to draw the rows of bricks. The top row of bricks should be 70 pixels away from the top of
     # the screen (BRICK_Y_OFFSET)
     pygame.init()
     mainSurface = pygame.display.set_mode((APPLICATION_WIDTH, APPLICATION_HEIGHT), 32, 0)
+    mainSurface.fill(WHITE)
     pygame.display.set_caption("Break Out")
 
     x = 0
     y = BRICK_Y_OFFSET
     bricks = 10
-    for rows in range(10):
-        for number in range(bricks):
-            pile = brick.Brick(BRICK_WIDTH, BRICK_HEIGHT, RED)
-            pile.rect.x = x
-            pile.rect.y = y
-            mainSurface.blit(pile.image, pile.rect)
-            x = x + BRICK_WIDTH + BRICK_SEP
-        y = y + BRICK_HEIGHT + BRICK_SEP
+    for groups in range(5):
+        color = colors.pop()
+        for rows in range(2):
+            for number in range(bricks):
+                pile = brick.Brick(BRICK_WIDTH, BRICK_HEIGHT, color)
+                pile.rect.x = x
+                pile.rect.y = y
+                mainSurface.blit(pile.image, pile.rect)
+                x = x + BRICK_WIDTH + BRICK_SEP
+            x = 0
+            y = y + BRICK_HEIGHT + BRICK_SEP
+    pygame.display.update()
+
+    # Step 2: Create a paddle
+    board = paddle.Paddle(mainSurface, BLACK, PADDLE_WIDTH, PADDLE_HEIGHT)
+    pygame.display.update()
+    board.rect.x = pygame.mouse.get_pos()
+    board.rect.y = APPLICATION_HEIGHT - PADDLE_Y_OFFSET
+    mainSurface.blit(board.image, board.rect)
     pygame.display.update()
 
     while True:
