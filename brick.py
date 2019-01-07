@@ -5,6 +5,7 @@ class Brick(pygame.sprite.Sprite):
 
     def __init__(self, width, height, color):
         # initialize sprite super class
+        super().__init__()
 
         # finish setting the class variables to the parameters
         self.width = width
