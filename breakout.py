@@ -36,6 +36,7 @@ def main():
     mainSurface = pygame.display.set_mode((APPLICATION_WIDTH, APPLICATION_HEIGHT), 32, 0)
     mainSurface.fill(WHITE)
     pygame.display.set_caption("Break Out")
+    bricksGroup = pygame.sprite.Group()
 
     x = 0
     y = BRICK_Y_OFFSET
@@ -47,6 +48,7 @@ def main():
                 pile = brick.Brick(BRICK_WIDTH, BRICK_HEIGHT, color)
                 pile.rect.x = x
                 pile.rect.y = y
+                bricksGroup.add(pile)
                 mainSurface.blit(pile.image, pile.rect)
                 x = x + BRICK_WIDTH + BRICK_SEP
             x = 0
@@ -55,8 +57,7 @@ def main():
 
     # Step 2: Create a paddle
     board = paddle.Paddle(mainSurface, BLACK, PADDLE_WIDTH, PADDLE_HEIGHT)
-    pygame.display.update()
-    board.rect.x = pygame.mouse.get_pos()
+    board.rect.x = APPLICATION_WIDTH / 2
     board.rect.y = APPLICATION_HEIGHT - PADDLE_Y_OFFSET
     mainSurface.blit(board.image, board.rect)
     pygame.display.update()
@@ -66,5 +67,11 @@ def main():
             if event == QUIT:
                 pygame.quit()
                 sys.exit()
+        mainSurface.fill(WHITE)
+        for cubes in bricksGroup:
+            mainSurface.blit(cubes.image, cubes.rect)
+        board.move()
+        mainSurface.blit(board.image, board.rect)
+        pygame.display.update()
 
 main()
