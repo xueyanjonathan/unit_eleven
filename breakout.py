@@ -1,6 +1,7 @@
 import pygame, sys
 import brick
 import paddle
+import ball
 from pygame.locals import *
 
 
@@ -37,6 +38,7 @@ def main():
     mainSurface.fill(WHITE)
     pygame.display.set_caption("Break Out")
     bricksGroup = pygame.sprite.Group()
+    paddleGroup = pygame.sprite.Group()
 
     x = 0
     y = BRICK_Y_OFFSET
@@ -60,7 +62,15 @@ def main():
     board.rect.x = APPLICATION_WIDTH / 2
     board.rect.y = APPLICATION_HEIGHT - PADDLE_Y_OFFSET
     mainSurface.blit(board.image, board.rect)
+    paddleGroup.add(board)
     pygame.display.update()
+
+    # Step 3: Create a ball
+    circle = ball.Ball(BLACK, APPLICATION_WIDTH, APPLICATION_HEIGHT, RADIUS_OF_BALL)
+    circle.rect.x = APPLICATION_WIDTH / 2
+    circle.rect.y = APPLICATION_HEIGHT / 2
+    pygame.display.update()
+
 
     while True:
         for event in pygame.event.get():
@@ -72,6 +82,10 @@ def main():
             mainSurface.blit(cubes.image, cubes.rect)
         board.move()
         mainSurface.blit(board.image, board.rect)
+        circle.move()
+        circle.collision(paddleGroup)
+        circle.collisionBrick(bricksGroup)
+        mainSurface.blit(circle.image, circle.rect)
         pygame.display.update()
 
 main()
