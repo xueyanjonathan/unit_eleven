@@ -16,9 +16,9 @@ def main():
     BRICK_Y_OFFSET = 70
     BRICK_WIDTH =  (APPLICATION_WIDTH - (BRICKS_PER_ROW -1) * BRICK_SEP) / BRICKS_PER_ROW
     BRICK_HEIGHT = 8
-    PADDLE_WIDTH = 60
+    PADDLE_WIDTH = 600
     PADDLE_HEIGHT = 10
-    RADIUS_OF_BALL = 10
+    RADIUS_OF_BALL = 100
     NUM_TURNS = 3
 
     # Sets up the colors
@@ -85,6 +85,20 @@ def main():
         circle.move()
         circle.collision(paddleGroup)
         circle.collisionBrick(bricksGroup)
+        if circle.rect.bottom >= APPLICATION_HEIGHT:
+            NUM_TURNS = NUM_TURNS - 1
+            circle.rect.x = APPLICATION_WIDTH / 2
+            circle.rect.y = APPLICATION_HEIGHT / 2
+            circle.speedx = 10
+            circle.speedy = 10
+            if NUM_TURNS == 0:
+                pygame.time.wait(1500)
+                pygame.quit()
+                sys.exit()
+        if len(bricksGroup) == 0:
+            pygame.time.wait(1500)
+            pygame.quit()
+            sys.exit()
         mainSurface.blit(circle.image, circle.rect)
         pygame.display.update()
 

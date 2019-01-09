@@ -1,5 +1,6 @@
 import pygame
-
+import random
+import decimal
 
 class Ball(pygame.sprite.Sprite):
 
@@ -22,8 +23,8 @@ class Ball(pygame.sprite.Sprite):
         # Add a circle to represent the ball to the surface just created.
 
         # Set the speed of the ball
-        self.speedx = 3
-        self.speedy = 5
+        self.speedx = 30
+        self.speedy = 50
 
     def move(self):
         self.rect.x += self.speedx
