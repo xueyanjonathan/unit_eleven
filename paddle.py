@@ -1,3 +1,6 @@
+# Jonathan Lin
+# 01/15/2019
+# Create the paddle in the breakout game
 import pygame
 
 
@@ -23,4 +26,5 @@ class Paddle(pygame.sprite.Sprite):
         self.image.fill(self.color)
 
     def move(self):
+        # Let the paddle move with the mouse
         self.rect.x = pygame.mouse.get_pos()[0]

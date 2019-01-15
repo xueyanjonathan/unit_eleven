@@ -1,6 +1,8 @@
+# Jonathan Lin
+# 01/15/2019
+# Create the ball in the breakout game
 import pygame
-import random
-import decimal
+
 
 class Ball(pygame.sprite.Sprite):
 
@@ -23,23 +25,26 @@ class Ball(pygame.sprite.Sprite):
         # Add a circle to represent the ball to the surface just created.
 
         # Set the speed of the ball
-        self.speedx = 30
-        self.speedy = 50
+        self.speedx = 5
+        self.speedy = 8
 
     def move(self):
         self.rect.x += self.speedx
         self.rect.y += self.speedy
+        # If the top of the ball hit the top of the window, or the bottom of the ball hit the bottom of the window,
+        # the vertical velocity of the ball reverses.
         if self.rect.top <= 0 or self.rect.bottom >= self.windowHeight:
             self.speedy = -self.speedy
+        # If the sides of the ball hit the sides of the window, reverse the ball's horizontal velocity.
         if self.rect.left <= 0 or self.rect.right >= self.windowWidth:
             self.speedx = -self.speedx
 
     def collision(self, spriteGroup):
+        # If the ball hit the paddle, the ball's vertical velocity reverses
         if pygame.sprite.spritecollide(self, spriteGroup, False):
             self.speedy = -self.speedy
 
     def collisionBrick(self, spriteGroup):
+        # If the ball hit a brick, eliminate the brick from the sprite group and reverse the ball's vertical direction.
         if pygame.sprite.spritecollide(self, spriteGroup, True):
             self.speedy = -self.speedy
-
-

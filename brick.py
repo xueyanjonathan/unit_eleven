@@ -1,3 +1,6 @@
+# Jonathan Lin
+# 01/15/2019
+# Create the bricks in the breakout game
 import pygame
 
 

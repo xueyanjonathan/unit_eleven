@@ -1,3 +1,6 @@
+# Jonathan Lin
+# 01/15/2019
+# Create a Breakout game
 import pygame
 import sys
 import brick
@@ -19,7 +22,7 @@ def main():
     BRICK_HEIGHT = 20
     PADDLE_WIDTH = 60
     PADDLE_HEIGHT = 10
-    RADIUS_OF_BALL = 10
+    RADIUS_OF_BALL = 100
     NUM_TURNS = 3
 
     # Sets up the colors
@@ -81,7 +84,6 @@ def main():
     circle.rect.x = APPLICATION_WIDTH / 2
     circle.rect.y = APPLICATION_HEIGHT / 2
     pygame.display.update()
-
 
     while True:
         for event in pygame.event.get():
