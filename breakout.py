@@ -108,6 +108,7 @@ def main():
             # Reset the position of the ball.
             circle.rect.x = APPLICATION_WIDTH / 2
             circle.rect.y = APPLICATION_HEIGHT / 2
+            pygame.time.wait(1000)
             # The ball will move with its original speed from the reset position.
             circle.speedx = 5
             circle.speedy = 8
