@@ -22,7 +22,7 @@ def main():
     BRICK_HEIGHT = 20
     PADDLE_WIDTH = 60
     PADDLE_HEIGHT = 10
-    RADIUS_OF_BALL = 100
+    RADIUS_OF_BALL = 10
     NUM_TURNS = 3
 
     # Sets up the colors
