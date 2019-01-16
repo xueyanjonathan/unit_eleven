@@ -18,9 +18,8 @@ class Ball(pygame.sprite.Sprite):
 
         # Create a surface, get the rect coordinates, fill the surface with a white color (or whatever color the
         # background of your breakout game will be.
-        self.image = pygame.Surface((self.radius, self.radius))
+        self.image = pygame.image.load("knuckles.png")
         self.rect = self.image.get_rect()
-        self.image.fill(self.color)
 
         # Add a circle to represent the ball to the surface just created.
 
@@ -43,6 +42,8 @@ class Ball(pygame.sprite.Sprite):
         # If the ball hit the paddle, the ball's vertical velocity reverses
         if pygame.sprite.spritecollide(self, spriteGroup, False):
             self.speedy = -self.speedy
+        hit_sound = pygame.mixer.Sound("dawae.wav")
+        hit_sound.play()
 
     def collisionBrick(self, spriteGroup):
         # If the ball hit a brick, eliminate the brick from the sprite group and reverse the ball's vertical direction.
