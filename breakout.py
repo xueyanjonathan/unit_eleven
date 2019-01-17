@@ -19,7 +19,7 @@ def main():
     BRICK_SEP = 4
     BRICK_Y_OFFSET = 70
     BRICK_WIDTH = (APPLICATION_WIDTH - (BRICKS_PER_ROW -1) * BRICK_SEP) / BRICKS_PER_ROW
-    BRICK_HEIGHT = 20
+    BRICK_HEIGHT = 10
     PADDLE_WIDTH = 60
     PADDLE_HEIGHT = 10
     RADIUS_OF_BALL = 10
@@ -108,10 +108,12 @@ def main():
             # Reset the position of the ball.
             circle.rect.x = APPLICATION_WIDTH / 2
             circle.rect.y = APPLICATION_HEIGHT / 2
+            lose_sound = pygame.mixer.Sound("dk_dawae.wav")
+            lose_sound.play()
             pygame.time.wait(1000)
             # The ball will move with its original speed from the reset position.
             circle.speedx = 5
-            circle.speedy = 8
+            circle.speedy = 6
             # If the user loses, the game waits for 1.5 seconds and quits afterwards.
             if NUM_TURNS == 0:
                 pygame.time.wait(1500)

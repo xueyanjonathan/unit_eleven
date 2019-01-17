@@ -16,10 +16,7 @@ class Brick(pygame.sprite.Sprite):
         self.color = color
 
         # Create a surface with the correct height and width
-        self.image = pygame.Surface((self.width, self.height))
+        self.image = pygame.image.load("kappa.png")
 
         # Get the rect coordinates
         self.rect = self.image.get_rect()
-
-        # Fill the surface with the correct color
-        self.image.fill(self.color)

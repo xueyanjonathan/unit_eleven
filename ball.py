@@ -25,7 +25,8 @@ class Ball(pygame.sprite.Sprite):
 
         # Set the speed of the ball
         self.speedx = 5
-        self.speedy = 8
+        self.speedy = 6
+        self.hit_sound = pygame.mixer.Sound("running.wav")
 
     def move(self):
         self.rect.x += self.speedx
@@ -42,10 +43,10 @@ class Ball(pygame.sprite.Sprite):
         # If the ball hit the paddle, the ball's vertical velocity reverses
         if pygame.sprite.spritecollide(self, spriteGroup, False):
             self.speedy = -self.speedy
-        hit_sound = pygame.mixer.Sound("dawae.wav")
-        hit_sound.play()
+            self.hit_sound.play()
 
     def collisionBrick(self, spriteGroup):
         # If the ball hit a brick, eliminate the brick from the sprite group and reverse the ball's vertical direction.
         if pygame.sprite.spritecollide(self, spriteGroup, True):
             self.speedy = -self.speedy
+
