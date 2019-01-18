@@ -12,7 +12,7 @@ from pygame.locals import *
 def main():
 
     # Constants that will be used in the program
-    APPLICATION_WIDTH = 400
+    APPLICATION_WIDTH = 500
     APPLICATION_HEIGHT = 600
     PADDLE_Y_OFFSET = 30
     BRICKS_PER_ROW = 10
@@ -85,13 +85,17 @@ def main():
     circle.rect.y = APPLICATION_HEIGHT / 2
     pygame.display.update()
 
+    background = pygame.image.load("cat.png")
+    background_rect = background.get_rect()
+    background_rect.x = 0
+    background_rect.y = 0
     while True:
         for event in pygame.event.get():
             if event == QUIT:
                 pygame.quit()
                 sys.exit()
         # Fill the window with white color every time the ball or the paddle moves
-        mainSurface.fill(WHITE)
+        mainSurface.blit(background, background_rect)
         # Add all the bricks on the window every time the ball or the paddle moves
         for cubes in bricksGroup:
             mainSurface.blit(cubes.image, cubes.rect)
@@ -121,7 +125,9 @@ def main():
                 sys.exit()
         # If all bricks are eliminated(have collided with the ball), the game waits for 1.5 seconds and quits.
         if len(bricksGroup) == 0:
-            pygame.time.wait(1500)
+            win_sound = pygame.mixer.Sound("clicking.wav")
+            win_sound.play()
+            pygame.time.wait(3000)
             pygame.quit()
             sys.exit()
         mainSurface.blit(circle.image, circle.rect)
