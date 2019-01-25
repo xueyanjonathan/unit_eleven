@@ -1,6 +1,6 @@
 # Jonathan Lin
-# 01/15/2019
-# Create a Breakout game
+# 01/25/2019
+# Create a Breakout game with images and sounds
 import pygame
 import sys
 import brick
@@ -24,48 +24,33 @@ def main():
     PADDLE_HEIGHT = 10
     RADIUS_OF_BALL = 10
     NUM_TURNS = 3
-
-    # Sets up the colors
-    RED = (255, 0, 0)
-    ORANGE = (255, 165, 0)
-    YELLOW = (255, 255, 0)
-    GREEN = (0, 255, 0)
-    CYAN = (0, 255, 255)
     BLACK = (0, 0, 0)
-    WHITE = (255, 255, 255)
-    colors = [CYAN, GREEN, YELLOW, ORANGE, RED]  # Put all the colors into a list
 
     # Step 1: Use loops to draw the rows of bricks. The top row of bricks should be 70 pixels away from the top of
     # the screen (BRICK_Y_OFFSET)
     pygame.init()
     # Create a window for the game
     mainSurface = pygame.display.set_mode((APPLICATION_WIDTH, APPLICATION_HEIGHT), 32, 0)
-    # Make the background color white
-    mainSurface.fill(WHITE)
     pygame.display.set_caption("Break Out")
     bricksGroup = pygame.sprite.Group()
     paddleGroup = pygame.sprite.Group()
 
-    # Create a pile of bricks, with the same number each row, and two rows with the same color
+    # Create a pile of bricks
     x = 0
     y = BRICK_Y_OFFSET
     bricks = 10
-    # Five different colors of bricks
-    for groups in range(5):
-        color = colors.pop()
-        # Two rows of bricks have the same color
-        for rows in range(2):
-            for number in range(bricks):
-                pile = brick.Brick(BRICK_WIDTH, BRICK_HEIGHT, color)
-                pile.rect.x = x
-                pile.rect.y = y
-                bricksGroup.add(pile)
-                # Add the row to the window(surface)
-                mainSurface.blit(pile.image, pile.rect)
-                x = x + BRICK_WIDTH + BRICK_SEP
-            # Start over at x = 0, but move up by the brick height + brick separation to draw two new rows
-            x = 0
-            y = y + BRICK_HEIGHT + BRICK_SEP
+    for rows in range(10):
+        for number in range(bricks):
+            pile = brick.Brick(BRICK_WIDTH, BRICK_HEIGHT, color)
+            pile.rect.x = x
+            pile.rect.y = y
+            bricksGroup.add(pile)
+            # Add the row to the window(surface)
+            mainSurface.blit(pile.image, pile.rect)
+            x = x + BRICK_WIDTH + BRICK_SEP
+        # Start over at x = 0, but move up by the brick height + brick separation to draw two new rows
+        x = 0
+        y = y + BRICK_HEIGHT + BRICK_SEP
     pygame.display.update()
 
     # Step 2: Create a paddle
@@ -94,7 +79,7 @@ def main():
             if event == QUIT:
                 pygame.quit()
                 sys.exit()
-        # Fill the window with white color every time the ball or the paddle moves
+        # Fill the window with the image every time the ball or the paddle moves
         mainSurface.blit(background, background_rect)
         # Add all the bricks on the window every time the ball or the paddle moves
         for cubes in bricksGroup:
@@ -112,8 +97,10 @@ def main():
             # Reset the position of the ball.
             circle.rect.x = APPLICATION_WIDTH / 2
             circle.rect.y = APPLICATION_HEIGHT / 2
+            # If the ball hits the bottom, the lose sound will be played.
             lose_sound = pygame.mixer.Sound("dk_dawae.wav")
             lose_sound.play()
+            # The game waits for a second.
             pygame.time.wait(1000)
             # The ball will move with its original speed from the reset position.
             circle.speedx = 5
@@ -123,7 +110,8 @@ def main():
                 pygame.time.wait(1500)
                 pygame.quit()
                 sys.exit()
-        # If all bricks are eliminated(have collided with the ball), the game waits for 1.5 seconds and quits.
+        # If all bricks are eliminated(have collided with the ball), the game waits for 3 seconds.
+        # It will play the winning sound, and quit.
         if len(bricksGroup) == 0:
             win_sound = pygame.mixer.Sound("clicking.wav")
             win_sound.play()

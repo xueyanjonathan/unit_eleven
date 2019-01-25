@@ -1,5 +1,5 @@
 # Jonathan Lin
-# 01/15/2019
+# 01/25/2019
 # Create the bricks in the breakout game
 import pygame
 
@@ -15,7 +15,7 @@ class Brick(pygame.sprite.Sprite):
         self.height = height
         self.color = color
 
-        # Create a surface with the correct height and width
+        # Put in the image for the brick
         self.image = pygame.image.load("kappa.png")
 
         # Get the rect coordinates

@@ -1,5 +1,5 @@
 # Jonathan Lin
-# 01/15/2019
+# 01/25/2019
 # Create the ball in the breakout game
 import pygame
 
@@ -16,12 +16,9 @@ class Ball(pygame.sprite.Sprite):
         self.windowHeight = windowHeight
         self.radius = radius
 
-        # Create a surface, get the rect coordinates, fill the surface with a white color (or whatever color the
-        # background of your breakout game will be.
+        # Create a surface, get the rect coordinates
         self.image = pygame.image.load("knuckles.png")
         self.rect = self.image.get_rect()
-
-        # Add a circle to represent the ball to the surface just created.
 
         # Set the speed of the ball
         self.speedx = 5
