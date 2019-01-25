@@ -23,7 +23,7 @@ class Ball(pygame.sprite.Sprite):
         # Set the speed of the ball
         self.speedx = 5
         self.speedy = 6
-        self.hit_sound = pygame.mixer.Sound("running.wav")
+        self.hit_sound = pygame.mixer.Sound("dawae.wav")
 
     def move(self):
         self.rect.x += self.speedx
